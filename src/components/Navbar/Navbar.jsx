@@ -5,6 +5,8 @@ import classes from './Navbar.module.css';
 function Navbar() {
   return (
     <nav className={classes.nav}>
+
+
       <div>
         <NavLink to="/profile" className={classes.item}>
           Profile

@@ -1,17 +1,13 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-function Profile() {
+function Profile({posts, addPost}) {
+ 
   return (
     <main>
-      <img
-        width="100%"
-        height={'200px'}
-        src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-        alt="im"
-      />
-
-      <MyPosts />
+      <ProfileInfo />
+      <MyPosts posts={posts} addPost={addPost}/>
     </main>
   );
 }

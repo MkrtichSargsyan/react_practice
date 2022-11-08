@@ -1,8 +1,12 @@
 import React from 'react';
+import {
+  addPostActionCreator,
+  updateNewPostActionCreator,
+} from '../../../redux/state';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 
-function MyPosts({posts,addPost}) {
+function MyPosts({ posts, dispatch, newPostText }) {
   let postsElements = posts.map((post) => (
     <Post key={post.id} message={post.message} likesCount={post.likesCount} />
   ));
@@ -10,9 +14,12 @@ function MyPosts({posts,addPost}) {
   let newPostElement = React.createRef();
 
   let addNewPost = () => {
-    let text = newPostElement.current.value;
-    console.log(addPost);
-    addPost(text)
+    dispatch(addPostActionCreator());
+  };
+
+  let onPostChange = (e) => {
+    e.preventDefault();
+    dispatch(updateNewPostActionCreator(newPostElement.current.value));
   };
 
   return (
@@ -20,10 +27,14 @@ function MyPosts({posts,addPost}) {
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea ref={newPostElement} value='it camasutra'/>
+          <textarea
+            ref={newPostElement}
+            value={newPostText}
+            onChange={(e) => onPostChange(e)}
+          />
         </div>
         <div>
-          <button onClick={()=>addNewPost()}>Add post</button>
+          <button onClick={() => addNewPost()}>Add post</button>
         </div>
       </div>
       <div className={classes.posts}>{postsElements}</div>

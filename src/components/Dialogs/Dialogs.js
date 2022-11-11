@@ -1,38 +1,28 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/state';
+import DialogItem from './DialogItem/DialogItem';
 import classes from './Dialogs.module.css';
+import Message from './Message/Message';
 
-const DialogItem = (props) => {
-  let path = 'dialogs' + props.id;
+function Dialogs({ dialogsPage, sendMessage, updateNewMessageBody }) {
+  let state = dialogsPage;
 
-  return (
-    <div className={classes.dialog}>
-      <NavLink to={path}>{props.name}</NavLink>
-    </div>
-  );
-};
-
-const Message = (props) => {
-  return <div className={classes.message}>{props.message}</div>;
-};
-
-function Dialogs({ dialogs, messages, newMessageBody,dispatch }) {
-  let dialogsElements = dialogs.map((dialog) => (
-    <DialogItem name={dialog.name} id={dialog.id} />
+  let dialogsElements = state.dialogs.map((dialog) => (
+    <DialogItem key={dialog.id} name={dialog.name} id={dialog.id} />
   ));
-  let messagesElements = messages.map((message) => (
-    <Message message={message.message} />
+  let messagesElements = state.messages.map((message) => (
+    <Message key={message.id} message={message.message} />
   ));
 
-  let onSendMessageClick = ()=>{
-    dispatch(sendMessageCreator())
-  }
+  let newMessageBody = state.newMessageBody;
 
-  let onNewMessageChange = (e)=>{
-    let body = e.target.value
-    dispatch(updateNewMessageBodyCreator(body))
-  }
+  let onSendMessageClick = () => {
+    sendMessage();
+  };
+
+  let onNewMessageChange = (e) => {
+    let body = e.target.value;
+    updateNewMessageBody(body);
+  };
 
   return (
     <div className={classes.dialogs}>
@@ -41,7 +31,11 @@ function Dialogs({ dialogs, messages, newMessageBody,dispatch }) {
         <div>{messagesElements}</div>
         <div>
           <div>
-            <textarea onChange={onNewMessageChange} value={newMessageBody} placeholder='Enter your message'></textarea>
+            <textarea
+              onChange={onNewMessageChange}
+              value={newMessageBody}
+              placeholder="Enter your message"
+            ></textarea>
           </div>
           <div>
             <button onClick={onSendMessageClick}>Send</button>

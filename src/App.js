@@ -1,14 +1,11 @@
 import './App.css';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import Dialogs from './components/Dialogs/Dialogs';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Profile from './components/Profile/Profile';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
-function App({ appState, dispatch }) {
-  const { dialogsPage, profilePage } = appState;
-  const { dialogs, messages, newMessageBody } = dialogsPage;
-  const { posts, newPostText } = profilePage;
+function App() {
   return (
     <BrowserRouter>
       <div className="app_wrapper">
@@ -16,27 +13,9 @@ function App({ appState, dispatch }) {
         <Navbar />
         <div className="app_wrapper_content">
           <Routes>
-            <Route
-              path="profile"
-              element={
-                <Profile
-                  posts={posts}
-                  dispatch={dispatch}
-                  newPostText={newPostText}
-                />
-              }
-            />
-            <Route
-              path="dialogs"
-              element={
-                <Dialogs
-                  newMessageBody={newMessageBody}
-                  dispatch={dispatch}
-                  dialogs={dialogs}
-                  messages={messages}
-                />
-              }
-            />
+            <Route path="dialogs" element={<DialogsContainer />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="users" element={<div>users</div>} />
           </Routes>
         </div>
       </div>

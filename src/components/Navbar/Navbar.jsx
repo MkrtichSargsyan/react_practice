@@ -17,6 +17,11 @@ function Navbar() {
           Messages
         </NavLink>
       </div>
+      <div> 
+        <NavLink to="/users" className={classes.item}>
+          Users
+        </NavLink>
+      </div>
       <div>
         <a href="#" className={classes.item}>
           News
